@@ -36,7 +36,7 @@ class ItemController extends Controller
             'LowStockAlert' => 'required',
             'Location' => 'required',
         ];
-        $validator = $this->validate($request, $rules);
+        $validator = $request->validate($rules);
 
         $item = new \App\Models\Item;
         $item->ItemName = $request->ItemName;
@@ -64,7 +64,12 @@ class ItemController extends Controller
      */
     public function edit(Item $item)
     {
-        //
+        $item = \App\Models\Item::find($id);
+        if (!$item) {
+            Session::flash('error', 'No Item Found');
+        } else {
+            return view('items.edit')->with('item', $item);
+        }
     }
 
     /**
@@ -72,7 +77,32 @@ class ItemController extends Controller
      */
     public function update(Request $request, Item $item)
     {
-        //
+        $rules = [
+            'ItemName' => 'required|max:100|unique:items,ItemName',
+            'Barcode' => 'required|unique:items,Barcode',
+            'Quantity' => 'required',
+            'LowStockAlert' => 'required',
+            'Location' => 'required',
+        ];
+        $validator = $request->validate($rules);
+
+        $item = \App\Models\Item::find($id);
+        if (!$item) {
+            Session::flash('error', 'No Item Found');
+        } else {
+
+        $item->ItemName = $request->ItemName;
+        $item->Barcode = $request->Barcode;
+        $item->Quantity = $request->Quantity;
+        $item->LowStockAlert = $request->LowStockAlert;
+        $item->Location = $request->Location;
+        $item->save();
+
+        Session::flash('success', 'Item Updated');
+
+        }
+
+        return redirect()->route('PLACEHOLDER');
     }
 
     /**
