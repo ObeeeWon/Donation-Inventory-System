@@ -10,7 +10,7 @@
                     <div class="card-body">
                         <form method="POST" action="/items/{{ $item->id }}">
                             @csrf
-                            <input type="hidden" name="_method" value="PUT"/>
+                            <input type="hidden" name="_method" value="POST"/>
                             <div class="row">
                                 <div class="col-md-12">
                                     <label for="ItemName">Item Name</label>
