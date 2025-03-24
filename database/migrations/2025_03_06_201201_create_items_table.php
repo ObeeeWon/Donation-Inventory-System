@@ -6,27 +6,36 @@ use Illuminate\Support\Facades\Schema;
 
 return new class extends Migration
 {
-    /**
-     * Run the migrations.
-     */
     public function up(): void
     {
         Schema::create('items', function (Blueprint $table) {
-            $table->id('ItemID'); // Primary key for the item (auto-incremented)
-            $table->string('ItemName'); // Name of the item
-            $table->string('Barcode')->unique(); // Unique barcode for the item
-            $table->integer('Quantity'); // Quantity of the item in stock
-            $table->integer('LowStockAlert'); // Threshold for low stock alert
-            $table->string('Location'); // Location where the item is stored
-            $table->timestamps(); // Automatically adds 'created_at' and 'updated_at' columns
+            $table->id('ItemID'); // Primary key
+            $table->string('ItemName');
+            $table->string('Barcode')->unique();
+            $table->integer('Quantity');
+            $table->integer('LowStockAlert');
+            $table->string('Location');
+
+            // Foreign keys
+            $table->unsignedBigInteger('item_location_id')->nullable();
+            $table->foreign('item_location_id')->references('id')->on('item_location')->onDelete('set null');
+
+            $table->unsignedBigInteger('item_desc_id')->nullable();
+            $table->foreign('item_desc_id')->references('id')->on('item_desc')->onDelete('set null');
+
+            $table->timestamps();
         });
     }
 
-    /**
-     * Reverse the migrations.
-     */
     public function down(): void
     {
+        Schema::table('items', function (Blueprint $table) {
+            $table->dropForeign(['item_location_id']);
+            $table->dropForeign(['item_desc_id']);
+
+            $table->dropColumn(['item_location_id', 'item_desc_id']);
+        });
+
         Schema::dropIfExists('items');
     }
 };
