@@ -5,15 +5,19 @@ namespace App\Http\Controllers;
 use App\Models\Item;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Session;
+use Illuminate\Database\Eloquent\SoftDeletes;
 
 class ItemController extends Controller
 {
+    use SoftDeletes;
     /**
      * Display a listing of the resource.
      */
     public function index()
     {
-        //
+        $items = \App\Models\Item::all()->sortBy('item');
+
+        return view('items.homepage')->with('items', $items);
     }
 
     /**
@@ -48,7 +52,7 @@ class ItemController extends Controller
 
         Session::flash('success', 'New Item Added');
 
-        return redirect()->route('PLACEHOLDER');
+        return redirect()->route('homepage');
     }
 
     /**
@@ -64,9 +68,9 @@ class ItemController extends Controller
      */
     public function edit(Item $item)
     {
-        $item = \App\Models\Item::find($id);
         if (!$item) {
             Session::flash('error', 'No Item Found');
+            return redirect()->route('items.index'); // Redirect to a list of items if not found
         } else {
             return view('items.edit')->with('item', $item);
         }
@@ -86,29 +90,28 @@ class ItemController extends Controller
         ];
         $validator = $request->validate($rules);
 
-        $item = \App\Models\Item::find($id);
-        if (!$item) {
-            Session::flash('error', 'No Item Found');
-        } else {
 
         $item->ItemName = $request->ItemName;
         $item->Barcode = $request->Barcode;
         $item->Quantity = $request->Quantity;
         $item->LowStockAlert = $request->LowStockAlert;
         $item->Location = $request->Location;
-        $item->save();
+        $item->update();
 
         Session::flash('success', 'Item Updated');
 
-        }
-
-        return redirect()->route('PLACEHOLDER');
+        return redirect()->route('homepage');
     }
 
     /**
      * Remove the specified resource from storage.
      */
     public function destroy(Item $item)
+    {
+        //
+    }
+
+    public function confirmDelete(Item $item)
     {
         //
     }
