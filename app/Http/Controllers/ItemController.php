@@ -14,18 +14,21 @@ class ItemController extends Controller
      * Display a listing of the resource.
      */
     public function index()
-    {
-        $items = \App\Models\Item::all()->sortBy('item');
+{
+    $items = \App\Models\Item::with(['itemDesc', 'itemLocation'])->get();
 
-        return view('items.homepage')->with('items', $items);
-    }
+    return view('items.homepage', compact('items'));
+}
 
     /**
      * Show the form for creating a new resource.
      */
     public function create()
     {
-        return view('items.create');
+        $itemDescriptions = \App\Models\ItemDesc::all();
+        $itemLocations = \App\Models\ItemLocation::all();
+
+        return view('items.create', compact('itemDescriptions', 'itemLocations'));
     }
 
     /**
@@ -34,25 +37,25 @@ class ItemController extends Controller
     public function store(Request $request)
     {
         $rules = [
-            'ItemName' => 'required|max:100|unique:items,ItemName',
+            'item_desc_id' => 'required|exists:item_desc,id',
+            'item_location_id' => 'required|exists:item_location,id',
             'Barcode' => 'required|unique:items,Barcode',
             'Quantity' => 'required',
             'LowStockAlert' => 'required',
-            'Location' => 'required',
         ];
         $validator = $request->validate($rules);
-
+    
         $item = new \App\Models\Item;
-        $item->ItemName = $request->ItemName;
+        $item->item_desc_id = $request->item_desc_id;
+        $item->item_location_id = $request->item_location_id;
         $item->Barcode = $request->Barcode;
         $item->Quantity = $request->Quantity;
         $item->LowStockAlert = $request->LowStockAlert;
-        $item->Location = $request->Location;
         $item->save();
-
+    
         Session::flash('success', 'New Item Added');
 
-        return redirect()->route('homepage');
+        return redirect()->route('items.homepage');
     }
 
     /**
@@ -68,12 +71,10 @@ class ItemController extends Controller
      */
     public function edit(Item $item)
     {
-        if (!$item) {
-            Session::flash('error', 'No Item Found');
-            return redirect()->route('items.index'); // Redirect to a list of items if not found
-        } else {
-            return view('items.edit')->with('item', $item);
-        }
+        $itemDescriptions = \App\Models\ItemDesc::all();
+        $itemLocations = \App\Models\ItemLocation::all();
+
+        return view('items.edit', compact('item', 'itemDescriptions', 'itemLocations'));
     }
 
     /**
@@ -82,25 +83,24 @@ class ItemController extends Controller
     public function update(Request $request, Item $item)
     {
         $rules = [
-            'ItemName' => 'required|max:100|unique:items,ItemName',
-            'Barcode' => 'required|unique:items,Barcode',
+            'item_desc_id' => 'required|exists:item_desc,id',
+            'item_location_id' => 'required|exists:item_location,id',
+            'Barcode' => 'required|unique:items,Barcode,' . $item->id,
             'Quantity' => 'required',
             'LowStockAlert' => 'required',
-            'Location' => 'required',
         ];
         $validator = $request->validate($rules);
-
-
-        $item->ItemName = $request->ItemName;
+    
+        $item->item_desc_id = $request->item_desc_id;
+        $item->item_location_id = $request->item_location_id;
         $item->Barcode = $request->Barcode;
         $item->Quantity = $request->Quantity;
         $item->LowStockAlert = $request->LowStockAlert;
-        $item->Location = $request->Location;
         $item->update();
-
+    
         Session::flash('success', 'Item Updated');
 
-        return redirect()->route('homepage');
+        return redirect()->route('items.homepage');
     }
 
     /**
