@@ -7,25 +7,23 @@ use Illuminate\Support\Facades\Schema;
 return new class extends Migration
 {
     public function up(): void
-    {
-        Schema::create('items', function (Blueprint $table) {
-            $table->id('ItemID'); // Primary key
-            $table->string('ItemName');
-            $table->string('Barcode')->unique();
-            $table->integer('Quantity');
-            $table->integer('LowStockAlert');
-            $table->string('Location');
+{
+    Schema::create('items', function (Blueprint $table) {
+        $table->id('ItemID'); // Primary key
+        $table->string('Barcode')->unique();
+        $table->integer('Quantity');
+        $table->integer('LowStockAlert');
 
-            // Foreign keys
-            $table->unsignedBigInteger('item_location_id')->nullable();
-            $table->foreign('item_location_id')->references('id')->on('item_location')->onDelete('set null');
+        // Foreign keys
+        $table->unsignedBigInteger('item_location_id')->nullable();
+        $table->foreign('item_location_id')->references('id')->on('item_location')->onDelete('set null');
 
-            $table->unsignedBigInteger('item_desc_id')->nullable();
-            $table->foreign('item_desc_id')->references('id')->on('item_desc')->onDelete('set null');
+        $table->unsignedBigInteger('item_desc_id')->nullable();
+        $table->foreign('item_desc_id')->references('id')->on('item_desc')->onDelete('set null');
 
-            $table->timestamps();
-        });
-    }
+        $table->timestamps();
+    });
+}
 
     public function down(): void
     {

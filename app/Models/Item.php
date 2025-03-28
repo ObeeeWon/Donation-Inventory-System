@@ -19,10 +19,20 @@ class Item extends Model
     protected $dates = ['created_at', 'updated_at', 'deleted_at']; // Include deleted_at for SoftDeletes
 
     protected $fillable = [
-        'ItemName',
+        'item_desc_id',
+        'item_location_id',
         'Barcode',
         'Quantity',
         'LowStockAlert',
-        'Location'
     ];
+
+    //Defining Foreign key Relationships
+    public function itemDesc()
+    {
+        return $this->belongsTo(ItemDesc::class, 'item_desc_id');
+    }
+    public function itemLocation()
+    {
+        return $this->belongsTo(ItemLocation::class, 'item_location_id'); // The foreign key is item_location_id
+    }
 }

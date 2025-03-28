@@ -9,7 +9,7 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('item_location', function (Blueprint $table) {
-            $table->id(); // Primary key
+            $table->id('location_id'); // Primary key
             $table->string('Location_Name', 255);
             $table->string('location_desc')->nullable();
             $table->timestamps();

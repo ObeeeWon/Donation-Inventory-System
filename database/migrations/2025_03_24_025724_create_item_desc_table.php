@@ -12,7 +12,7 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('item_desc', function (Blueprint $table) {
-            $table->item_desc_id();
+            $table->id('item_desc_id');
             $table->string('ItemName', 255); // maximum length 255
             $table->text('ItemDescription')->nullable(); // nullable
             $table->timestamps();
