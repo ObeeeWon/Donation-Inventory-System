@@ -10,9 +10,11 @@ return new class extends Migration
 {
     Schema::create('items', function (Blueprint $table) {
         $table->id('ItemID'); // Primary key
-        $table->string('Barcode')->unique();
+        $table->string('Barcode');
         $table->integer('Quantity');
         $table->integer('LowStockAlert');
+        $table->string('ItemName');
+        $table->string('Location');
 
         // Foreign keys
         $table->unsignedBigInteger('item_location_id')->nullable();

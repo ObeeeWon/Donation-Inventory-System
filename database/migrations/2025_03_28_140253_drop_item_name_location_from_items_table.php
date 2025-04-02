@@ -12,7 +12,7 @@
         public function up(): void
         {
             Schema::table('items', function (Blueprint $table) {
-                $table->dropColumn(['Item Name', 'Location']);
+                $table->dropColumn(['ItemName', 'Location']);
             });
         }
 
@@ -22,7 +22,7 @@
         public function down(): void
         {
             Schema::table('items', function (Blueprint $table) {
-                $table->string('Item Name'); // Add back the column
+                $table->string('ItemName'); // Add back the column
                 $table->string('Location');
             });
         }
