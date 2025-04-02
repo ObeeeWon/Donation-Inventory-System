@@ -17,7 +17,7 @@ return new class extends Migration
             $table->string('email')->unique();
             $table->string('password');
             $table->string('Role');
-            $table->string('Location')->unique(); // identify different inventory location
+            $table->string('Location')->unique(); // identify different inventory location:
             $table->timestamp('updated_at');  // Edit time
             $table->timestamp('created_at')->useCurrent();//Create time
         });
