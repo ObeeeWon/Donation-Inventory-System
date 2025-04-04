@@ -23,3 +23,7 @@ Route::get('/items/{item}/edit', [ItemController::class, 'edit'])->name('item.ed
 Route::get('/items/delete/{ItemID}', [App\Http\Controllers\ItemController::class, 'confirmDelete'])->name('items.confirmDelete');
 
 Route::put('/items/{item}', [ItemController::class, 'update'])->name('item.update');
+
+Route::resource('itemdesc', App\Http\Controllers\ItemDescController::class);
+Route::resource('itemlocation', App\Http\Controllers\ItemLocationController::class);
+

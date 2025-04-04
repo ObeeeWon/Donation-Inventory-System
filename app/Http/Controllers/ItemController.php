@@ -14,11 +14,11 @@ class ItemController extends Controller
      * Display a listing of the resource.
      */
     public function index()
-{
-    $items = \App\Models\Item::with(['itemDesc', 'itemLocation'])->get();
+    {
+        $items = \App\Models\Item::with(['itemDesc', 'itemLocation'])->get();
 
-    return view('items.homepage', compact('items'));
-}
+        return view('items.homepage', compact('items'));
+    }
 
     /**
      * Show the form for creating a new resource.
@@ -37,6 +37,7 @@ class ItemController extends Controller
     public function store(Request $request)
     {
         $rules = [
+
             'item_desc_id' => 'required|exists:item_desc,id',
             'item_location_id' => 'required|exists:item_location,id',
             'Barcode' => 'required|unique:items,Barcode',
