@@ -13,7 +13,9 @@ class ItemController extends Controller
      */
     public function index()
     {
-        //
+        $items = \App\Models\Item::with(['itemDesc', 'itemLocation'])->get();
+
+        return view('items.homepage', compact('items'));
     }
 
     /**
@@ -30,7 +32,8 @@ class ItemController extends Controller
     public function store(Request $request)
     {
         $rules = [
-            'ItemName' => 'required|max:100|unique:items,ItemName',
+            'item_desc_id' => 'required|exists:item_desc_id',
+            'item_location_id' => 'required|exists:item_location_id',
             'Barcode' => 'required|unique:items,Barcode',
             'Quantity' => 'required',
             'LowStockAlert' => 'required',
