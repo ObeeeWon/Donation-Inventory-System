@@ -33,8 +33,8 @@ class ItemLocationController extends Controller
     public function store(Request $request)
     {
         $rules = [
-            'Location_Name' => 'required|exists:Location_Name',
-            'location_desc' => 'required|exists:location_desc',
+            'Location_Name' => 'required|unique:item_location,Location_Name',
+            'location_desc' => 'required',
         ];
         $validator = $request->validate($rules);
     
@@ -59,7 +59,7 @@ class ItemLocationController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(ItemLocation $itemLoc)
+    public function edit(ItemLocation $itemloc)
     {
         return view('itemloc.edit', compact('itemloc'));
     }
@@ -67,28 +67,32 @@ class ItemLocationController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, ItemLocation $itemLoc)
+    public function update(Request $request, ItemLocation $itemloc)
     {
         $rules = [
-            'Location_Name' => 'required|exists:Location_Name',
-            'ItemDescription' => 'required|exists:ItemDescription',
+            'Location_Name' => 'required|unique:item_location,Location_Name,' . $itemloc->id,
+            'location_desc' => 'required',
         ];
+    
         $validator = $request->validate($rules);
     
-        $itemLoc->Location_Name = $request->Location_Name;
-        $itemLoc->location_desc = $request->location_desc;
-        $itemLoc->update();
+        $itemloc->Location_Name = $request->Location_Name;
+        $itemloc->location_desc = $request->location_desc;
+        $itemloc->update();
     
         Session::flash('success', 'Item Location Updated');
-
+    
         return redirect()->route('itemloc.index');
     }
 
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(string $id)
+    public function destroy(ItemLocation $itemloc)
     {
-        //
+        $itemloc->delete();
+
+        Session::flash('success', 'Item Location Deleted');
+        return redirect()->route('itemloc.index'); 
     }
 }

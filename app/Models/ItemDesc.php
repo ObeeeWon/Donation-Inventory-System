@@ -20,6 +20,7 @@ class ItemDesc extends Model
 
     protected $fillable = [
         'ItemName',
-        'ItemDescription'
+        'ItemDescription',
+        'Barcode'
     ];
 }

@@ -15,6 +15,8 @@
                             <input type="text" class="form-control" name="ItemName" title="ItemName"/>
                             <label for="ItemDescription">Item Description</label>
                             <input type="text" class="form-control" name="ItemDescription" title="ItemDescription"/>
+                            <label for="Barcode">Barcode</label>
+                            <input type="text" class="form-control" name="Barcode" title="Barcode"/>
                             <input type="submit" value="Add Item Master" class="btn btn-primary btn-lrg btn-block" style="margin-top:20px"/>
                         </form>
 

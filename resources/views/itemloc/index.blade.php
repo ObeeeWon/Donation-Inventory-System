@@ -38,7 +38,7 @@
                                         </div>
 
                                         <div style="float:left; margin-left:5px;">
-                                            <form method="post" action="/itemloc/{{$itemdescs->location_id}}" onsubmit="return confirm('Delete the location? Are you sure?')">
+                                            <form method="post" action="/itemloc/{{$location->location_id}}" onsubmit="return confirm('Delete the location? Are you sure?')">
                                                 @csrf
                                                 <input type="hidden" name="_method" value="DELETE"/>
                                                 <input type="submit" name="submit" value="Delete" class="btn btn-danger btm-sm"/>

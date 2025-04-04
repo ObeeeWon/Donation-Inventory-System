@@ -33,14 +33,16 @@ class ItemDescController extends Controller
     public function store(Request $request)
     {
         $rules = [
-            'ItemName' => 'required|exists:ItemName',
-            'ItemDescription' => 'required|exists:ItemDescription',
+            'ItemName' => 'required|unique:item_desc,ItemName',
+            'ItemDescription' => 'required',
+            'Barcode' => 'required',
         ];
         $validator = $request->validate($rules);
     
         $itemDesc = new \App\Models\ItemDesc;
         $itemDesc->ItemName = $request->ItemName;
         $itemDesc->ItemDescription = $request->ItemDescription;
+        $itemDesc->Barcode = $request->Barcode;
         $itemDesc->save();
     
         Session::flash('success', 'New Item Master Added');
@@ -70,13 +72,15 @@ class ItemDescController extends Controller
     public function update(Request $request, ItemDesc $itemdesc)
     {
         $rules = [
-            'ItemName' => 'required|exists:ItemName',
-            'ItemDescription' => 'required|exists:ItemDescription',
+            'ItemName' => 'required|unique:item_desc,ItemName',
+            'ItemDescription' => 'required',
+            'Barcode' => 'required',
         ];
         $validator = $request->validate($rules);
     
         $itemdesc->ItemName = $request->ItemName;
         $itemdesc->ItemDescription = $request->ItemDescription;
+        $itemdesc->Barcode = $request->Barcode;
         $itemdesc->update();
     
         Session::flash('success', 'Item Master Updated');
@@ -87,8 +91,11 @@ class ItemDescController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(string $id)
+    public function destroy(ItemDesc $itemdesc)
     {
-        //
+        $itemdesc->delete();
+
+        Session::flash('success', 'Item Master Deleted');
+        return redirect()->route('itemdesc.index');
     }
 }
