@@ -9,17 +9,17 @@
                     <div class="card-header">Edit Location</div>
                     <div class="card-body">
 
-                        <form method="POST" action="/itemloc/{{ $itemloc->location_id }}">
+                        <form method="POST" action="{{ route('itemloc.update', $itemloc) }}">
                             @csrf
                             <input type="hidden" name="_method" value="PUT"/>
                             <div class="row">
                                 <div class="col-md-6">
                                     <label for="Location_Name">Location Name</label>
-                                    <input type="text" class="form-control" name="Location_Name" title="Location_Name" value="{{ old('itemloc', $Location_Name->Location_Name) }}"/>
+                                    <input type="text" class="form-control" name="Location_Name" title="Location_Name" value="{{ old('Location_Name', $itemloc->Location_Name) }}"/>
                                 </div>
                                 <div class="col-md-6">
                                     <label for="location_desc">Location Description</label>
-                                    <input type="text" class="form-control" name="location_desc" title="location_desc" value="{{ old('itemdesc', $location_desc->location_desc) }}"/>
+                                    <input type="text" class="form-control" name="location_desc" title="location_desc" value="{{ old('location_desc', $itemloc->location_desc) }}"/>
                                 </div>
                             </div>
                             <div class="row">

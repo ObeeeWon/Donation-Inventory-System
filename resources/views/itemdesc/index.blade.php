@@ -23,6 +23,7 @@
                                 <th>ID</th>
                                 <th>Item Name</th>
                                 <th>Item Description</th>
+                                <th>Barcode</th>
                                 <th></th>
                             </tr>
                         </thead>
@@ -32,6 +33,7 @@
                                     <td>{{ $itemdescs->item_desc_id }}</td>
                                     <td>{{ $itemdescs->ItemName }}</td>
                                     <td>{{ $itemdescs->ItemDescription }}
+                                    <td>{{ $itemdescs->Barcode }}
                                     <td>
                                         <div style="float:left;">
                                             <a href="{{ route('itemdesc.edit', $itemdescs->item_desc_id) }}" class="btn btn-success btn-sm">EDIT</a>

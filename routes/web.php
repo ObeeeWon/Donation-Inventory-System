@@ -1,7 +1,10 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use Illuminate\Support\Facades\Auth;
 use App\Http\Controllers\ItemController;
+use App\Http\Controllers\ItemDescController;
+use App\Http\Controllers\ItemLocationController;
 
 Route::get('/', function () {
     return view('welcome');
@@ -25,5 +28,7 @@ Route::get('/items/delete/{ItemID}', [App\Http\Controllers\ItemController::class
 Route::put('/items/{item}', [ItemController::class, 'update'])->name('item.update');
 
 Route::resource('itemdesc', App\Http\Controllers\ItemDescController::class);
-Route::resource('itemlocation', App\Http\Controllers\ItemLocationController::class);
+
+Route::resource('itemloc', App\Http\Controllers\ItemLocationController::class);
+
 

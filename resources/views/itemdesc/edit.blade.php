@@ -9,17 +9,25 @@
                     <div class="card-header">Edit Item Master</div>
                     <div class="card-body">
 
-                        <form method="POST" action="/itemdesc/{{ $itemdesc->item_desc_id }}">
+                        <form method="POST" action="{{ route('itemdesc.update', $itemdesc) }}">
                             @csrf
                             <input type="hidden" name="_method" value="PUT"/>
                             <div class="row">
-                                <div class="col-md-6">
+                                <div class="col-md-12">
                                     <label for="ItemName">Item Name</label>
-                                    <input type="text" class="form-control" name="ItemName" title="ItemName" value="{{ old('itemdesc', $ItemName->ItemName) }}"/>
+                                    <input type="text" class="form-control" name="ItemName" title="ItemName" value="{{ old('ItemName', $itemdesc->ItemName) }}"/>
                                 </div>
-                                <div class="col-md-6">
+                            </div>
+                            <div class="row">
+                                <div class="col-md-12">
                                     <label for="ItemDescription">Item Description</label>
-                                    <input type="text" class="form-control" name="ItemDescription" title="ItemDescription" value="{{ old('itemdesc', $ItemDescription->ItemDescription) }}"/>
+                                    <input type="text" class="form-control" name="ItemDescription" title="ItemDescription" value="{{ old('ItemDescription', $itemdesc->ItemDescription) }}"/>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <label for="Barcode">Barcode</label>
+                                    <input type="text" class="form-control" name="Barcode" title="Barcode" value="{{ old('Barcode', $itemdesc->Barcode) }}"/>
                                 </div>
                             </div>
                             <div class="row">
