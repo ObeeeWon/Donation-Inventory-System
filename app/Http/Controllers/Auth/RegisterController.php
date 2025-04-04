@@ -28,7 +28,7 @@ class RegisterController extends Controller
      *
      * @var string
      */
-    protected $redirectTo = '/home';
+    protected $redirectTo = '/homepage';
 
     /**
      * Create a new controller instance.
@@ -38,6 +38,15 @@ class RegisterController extends Controller
     public function __construct()
     {
         $this->middleware('guest');
+    }
+
+    public function showRegistrationForm()
+    {
+        // Fetch all item_locations from the item_location table
+        $locations = Location::all();
+    
+        // Pass item_locations to the registration view
+        return view('auth.register', compact('item_locations'));    
     }
 
     /**
@@ -52,6 +61,7 @@ class RegisterController extends Controller
             'name' => ['required', 'string', 'max:255'],
             'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
             'password' => ['required', 'string', 'min:8', 'confirmed'],
+            'location_id' => ['required', 'exists:locations,id'],
         ]);
     }
 
@@ -67,6 +77,8 @@ class RegisterController extends Controller
             'name' => $data['name'],
             'email' => $data['email'],
             'password' => Hash::make($data['password']),
+            'location_id' => $data['location_id'],
+            'role' => 'user',
         ]);
     }
 }
