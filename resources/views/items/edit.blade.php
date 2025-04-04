@@ -10,19 +10,37 @@
                     <div class="card-body">
                         <form method="POST" action="/items/{{ $item->id }}">
                             @csrf
-                            <input type="hidden" name="_method" value="PUT"/>
+                            <input type="hidden" name="_method" value="POST"/>
                             <div class="row">
                                 <div class="col-md-12">
                                     <label for="ItemName">Item Name</label>
-                                    <input type="text" class="form-control" name="ItemName" title="ItemName" value="{{ old('ItemName', $item->ItemName) }}"/>
+                                    <select class="form-control" name="item_desc_id">
+                                        @foreach($itemDescriptions as $description)
+                                            <option value="{{ $description->id }}" 
+                                                {{ $description->id == old('item_desc_id', $item->item_desc_id) ? 'selected' : '' }}>
+                                                {{ $description->ItemName }}
+                                            </option>
+                                        @endforeach
+                                    </select>
+                        
                                     <label for="Barcode">Barcode</label>
-                                    <input type="text" class="form-control" name="Barcode" title="Barcode" value="{{ old('Barcode', $item->Barcode) }}"/>
+                                    <input type="text" class="form-control" name="Barcode" value="{{ old('Barcode', $item->Barcode) }}"/>
+                        
                                     <label for="Quantity">Quantity</label>
-                                    <input type="number" class="form-control" name="Quantity" title="Quantity" value="{{ old('Quantity', $item->Quantity) }}"/>
+                                    <input type="number" class="form-control" name="Quantity" value="{{ old('Quantity', $item->Quantity) }}"/>
+                        
                                     <label for="LowStockAlert">Low Stock Threshold</label>
-                                    <input type="number" class="form-control" name="LowStockAlert" title="LowStockAlert" value="{{ old('LowStockAlert', $item->LowStockAlert) }}"/>
+                                    <input type="number" class="form-control" name="LowStockAlert" value="{{ old('LowStockAlert', $item->LowStockAlert) }}"/>
+
                                     <label for="Location">Location</label>
-                                    <input type="text" class="form-control" name="Location" title="Location" value="{{ old('Location', $item->Location) }}"/>
+                                    <select class="form-control" name="item_location_id">
+                                        @foreach($itemLocations as $location)
+                                            <option value="{{ $location->id }}" 
+                                                {{ $location->id == old('item_location_id', $item->item_location_id) ? 'selected' : '' }}>
+                                                {{ $location->Location_Name }}
+                                            </option>
+                                        @endforeach
+                                    </select>
                                 </div>
                             </div>
                             <div class="row">
@@ -32,7 +50,7 @@
                                 <div class="col-md-6">
                                     <a href="/items" class="btn btn-lg btn-danger btn-block" style="margin-top:20px">Cancel</a>
                                 </div>
-                            </div>                        
+                            </div>
                         </form>
 
                     </div>

@@ -1,6 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\ItemController;
 
 Route::get('/', function () {
     return view('welcome');
@@ -25,3 +26,4 @@ Route::put('/items/{item}', [ItemController::class, 'update'])->name('item.updat
 
 Route::resource('itemdesc', App\Http\Controllers\ItemDescController::class);
 Route::resource('itemlocation', App\Http\Controllers\ItemLocationController::class);
+
