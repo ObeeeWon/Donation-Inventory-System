@@ -25,8 +25,7 @@ Route::get('/items/{item}/edit', [ItemController::class, 'edit'])->name('item.ed
 Route::get('/items/delete/{ItemID}', [App\Http\Controllers\ItemController::class, 'confirmDelete'])->name('items.confirmDelete');
 
 Route::put('/items/{item}', [ItemController::class, 'update'])->name('item.update');
-<<<<<<< Updated upstream
-=======
+
 
 //when you're ready to do the validation and not just testing ya dumbass, slap ts in
 //Route::middleware(['auth', 'admin'])->group(function () { routes for users go here });
@@ -45,4 +44,4 @@ Route::delete('/admin/users/{UserID}', [App\Http\Controllers\AdminController::cl
 
 Route::resource('itemdesc', App\Http\Controllers\ItemDescController::class);
 Route::resource('itemlocation', App\Http\Controllers\ItemLocationController::class);
->>>>>>> Stashed changes
+
