@@ -7,6 +7,7 @@ use App\Models\User;
 use Illuminate\Foundation\Auth\RegistersUsers;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
+use App\Models\ItemLocation;
 
 class RegisterController extends Controller
 {
@@ -43,7 +44,7 @@ class RegisterController extends Controller
     public function showRegistrationForm()
     {
         // Fetch all item_locations from the item_location table
-        $locations = Location::all();
+        $item_locations = ItemLocation::all();
     
         // Pass item_locations to the registration view
         return view('auth.register', compact('item_locations'));    
@@ -61,7 +62,7 @@ class RegisterController extends Controller
             'name' => ['required', 'string', 'max:255'],
             'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
             'password' => ['required', 'string', 'min:8', 'confirmed'],
-            'location_id' => ['required', 'exists:locations,id'],
+            'location_id' => ['required', 'exists:item_location,location_id'],
         ]);
     }
 
