@@ -13,6 +13,7 @@ return new class extends Migration
             $table->string('Location_Name', 255);
             $table->string('location_desc')->nullable();
             $table->timestamps();
+            $table->timestamp('deleted_at');
         });
     }
 

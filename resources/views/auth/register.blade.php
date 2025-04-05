@@ -61,6 +61,21 @@
                             </div>
                         </div>
 
+                        <div class="row mb-3">
+                            <label for="location" class="col-md-4 col-form-label text-md-end">{{ __('Password')}}</label>
+
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label for="item_location_id">Item Location</label>
+                                    <select id="item_location_id" name="item_location_id" class="form-control" required>
+                                        @foreach ($item_locations as $item_location)
+                                            <option value="{{ $item_location->location_id }}">{{ $item_location->Location_Name }}</option>
+                                        @endforeach
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                        
                         <div class="row mb-0">
                             <div class="col-md-6 offset-md-4">
                                 <button type="submit" class="btn btn-primary">
@@ -68,6 +83,7 @@
                                 </button>
                             </div>
                         </div>
+
                     </form>
                 </div>
             </div>

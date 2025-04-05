@@ -16,6 +16,7 @@ return new class extends Migration
             $table->string('ItemName', 255); // maximum length 255
             $table->text('ItemDescription')->nullable(); // nullable
             $table->timestamps();
+            $table->timestamp('deleted_at')->nullable();
         });
     }
 

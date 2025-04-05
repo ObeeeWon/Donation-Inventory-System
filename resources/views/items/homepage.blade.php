@@ -30,12 +30,30 @@
                         </thead>
                         <tbody>
                             @foreach($items as $item)
-                            <tr>
+                            <!--check for quantity vs low stock alert, change colour based on the comparison.-->
+                            <?php
+                                $trcolour = '#FFFFFF';
+                            ?>
+
+                            @if ($item->Quantity / $item->LowStockAlert >= 2)
+                                <?php
+                                    $trcolour = '#FFFF00';
+                                ?>
+                            @endif
+
+                            @if ($item->Quantity <= $item->LowStockAlert)
+                                <?php
+                                    $trcolour = '#FF0000';
+                                ?>
+                            @endif
+
+                            <tr style="background-color:<?php echo $trcolour;?>">
                                 <td>{{$item->ItemID}}</td>
                                 <td>{{$item->ItemName}}</td>
                                 <td>{{$item->Quantity}}</td>
                                 <td>{{'N/A'}}</td>
                             </tr>
+
                             @endforeach
                         </tbody>
                     </table>
@@ -85,29 +103,6 @@
         </div>
 
     </div>
-
-    <div class="row justify-content-center">
-
-        <div class="col-md-12">
-            <div class="card">
-                <div class="card-header">
-                    {{ __('Inventory Reminder')}}
-                </div>
-
-                <div class="card-body">
-                    <div class="justify-content-center">
-                        @foreach($items as $item)
-                            @if($item->Quantity <= $item->LowStockAlert)
-                                {{'ID:' . $item->ItemID . 'Name:' . $item->ItemName . 'Current Supply:' . $item->Quantity}}
-                            @endif
-                        @endforeach
-                    </div>
-                </div>
-            </div>
-        </div>
-
-    </div>
-
 </div>
 @endsection
 
