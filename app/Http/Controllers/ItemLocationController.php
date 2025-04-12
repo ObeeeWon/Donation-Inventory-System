@@ -70,7 +70,7 @@ class ItemLocationController extends Controller
     public function update(Request $request, ItemLocation $itemloc)
     {
         $rules = [
-            'Location_Name' => 'required|unique:item_location,Location_Name,' . $itemloc->id,
+            'Location_Name' => 'required',
             'location_desc' => 'required',
         ];
     

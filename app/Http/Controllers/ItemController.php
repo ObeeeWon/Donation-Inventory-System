@@ -38,9 +38,9 @@ class ItemController extends Controller
     {
         $rules = [
 
-            'item_desc_id' => 'required|exists:item_desc,id',
-            'item_location_id' => 'required|exists:item_location,id',
-            'Barcode' => 'required|unique:items,Barcode',
+            'item_desc_id' => 'required',
+            'item_location_id' => 'required',
+            'Barcode' => 'required',
             'Quantity' => 'required',
             'LowStockAlert' => 'required',
         ];
@@ -84,9 +84,9 @@ class ItemController extends Controller
     public function update(Request $request, Item $item)
     {
         $rules = [
-            'item_desc_id' => 'required|exists:item_desc,id',
-            'item_location_id' => 'required|exists:item_location,id',
-            'Barcode' => 'required|unique:items,Barcode,' . $item->id,
+            'item_desc_id' => 'required',
+            'item_location_id' => 'required',
+            'Barcode' => 'required',
             'Quantity' => 'required',
             'LowStockAlert' => 'required',
         ];

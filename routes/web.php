@@ -48,7 +48,7 @@ Route::put('/admin/users/{UserID}/edit', [App\Http\Controllers\AdminController::
 Route::delete('/admin/users/{UserID}', [App\Http\Controllers\AdminController::class, 'deleteUser'])->name('admin.deleteUser');
 
 Route::resource('itemdesc', App\Http\Controllers\ItemDescController::class);
-Route::resource('itemlocation', App\Http\Controllers\ItemLocationController::class);
-// Route::resource('itemloc', App\Http\Controllers\ItemLocationController::class);
+//Route::resource('itemlocation', App\Http\Controllers\ItemLocationController::class);
+Route::resource('itemloc', App\Http\Controllers\ItemLocationController::class);
 
 

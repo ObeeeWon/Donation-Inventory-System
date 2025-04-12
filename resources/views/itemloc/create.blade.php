@@ -9,11 +9,7 @@
                     <div class="card-header">Create New Location</div>
                     <div class="card-body">
 
-<<<<<<< HEAD
-                        <form method="POST" action="/itemloc">
-=======
                         <form method="POST" action="{{ route('itemloc.store') }}">
->>>>>>> Finalmeetingbranch
                             @csrf
                             <label for="Location_Name">Location Name</label>
                             <input type="text" class="form-control" name="Location_Name" title="Location_Name"/>

@@ -25,12 +25,6 @@
                                 </div>
                             </div>
                             <div class="row">
-                                <div class="col-md-12">
-                                    <label for="Barcode">Barcode</label>
-                                    <input type="text" class="form-control" name="Barcode" title="Barcode" value="{{ old('Barcode', $itemdesc->Barcode) }}"/>
-                                </div>
-                            </div>
-                            <div class="row">
                                 <div class="col-md-6">
                                     <input type="submit" value="Save Changes" class="btn btn-success btn-lg btn-block" style="margin-top:20px"/>
                                 </div>
